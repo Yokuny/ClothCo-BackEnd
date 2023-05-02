@@ -3,7 +3,6 @@ import { ObjectId } from "mongodb";
 
 export const postOrder = async (req, res) => {
   const token = req.headers.authorization.replace("Bearer ", "");
-  console.log(req.body);
   const products = req.body.products.sort((a, b) => {
     if (a._id > b._id) return 1;
     if (a._id < b._id) return -1;
@@ -44,7 +43,15 @@ export const postOrder = async (req, res) => {
 
 export const getOrder = async (req, res) => {
   const token = req.headers.authorization.replace("Bearer ", "");
-  return res.send(token);
+
+  try {
+    const user = await db.collection("users").findOne({ token }, { projection: { _id: true } });
+    const orders = await db.collection("orders").find({ userId: user._id }).toArray();
+
+    return res.send(orders);
+  } catch (err) {
+    return res.status(500).send("server error");
+  }
 };
 
 export const getOneOrder = async (req, res) => {
