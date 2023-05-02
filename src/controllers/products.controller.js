@@ -181,7 +181,6 @@ import { db } from "../database/database.connection.js";
 ]; */
 
 export const getProducts = async (req, res) => {
-  // await db.collection("products").insertMany(products);
   try {
     const options = { projection: { description: 0, color: 0, type: 0, quantity: 0 } };
     const data = await db.collection("products").find({}, options).toArray();
