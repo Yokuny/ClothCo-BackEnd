@@ -3,8 +3,16 @@ import { ObjectId } from "mongodb";
 
 export const getCartItem = async (req, res) => {
   const token = req.headers?.authorization.replace("Bearer ", "");
-  return res.status(200).send(token);
-};
+
+  try {
+    const [user] = await db.collection("users").find({ token: token }).toArray();
+    if (!user) return res.status(401).send("user not logged in");
+
+    return res.status(200).send(user.cart);
+  } catch (err) {
+    return res.status(500).send("server error");
+  }
+}
 
 export const postCartItem = async (req, res) => {
   const token = req.headers?.authorization.replace("Bearer ", "");
