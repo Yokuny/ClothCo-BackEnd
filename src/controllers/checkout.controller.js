@@ -57,5 +57,14 @@ export const getOrder = async (req, res) => {
 export const getOneOrder = async (req, res) => {
   const token = req.headers.authorization.replace("Bearer ", "");
   const { id } = req.params;
-  return res.send(id);
+  if (!ObjectId.isValid(id)) return res.status(401).send("ID inválido");
+
+  try {
+    const user = await db.collection("users").findOne({ token }, { projection: { _id: true } });
+    const order = await db.collection("orders").findOne({ _id: new ObjectId(id), userId: user._id });
+
+    return res.send(order);
+  } catch (err) {
+    return res.status(500).send("server error");
+  }
 };
