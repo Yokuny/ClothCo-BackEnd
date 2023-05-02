@@ -4,6 +4,7 @@ import { v4 as newToken } from "uuid";
 
 export const postRegister = async (req, res) => {
   const { name, email, password } = req.body;
+
   try {
     const user = await db.collection("users").findOne({ email: email });
     if (user) return res.status(400).send("Email already exists");
@@ -25,6 +26,7 @@ export const postRegister = async (req, res) => {
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const user = await db.collection("users").findOne({ email: email });
     if (!user) return res.status(400).send("Email doesn't exists");

@@ -193,6 +193,7 @@ export const getProducts = async (req, res) => {
 
 export const getOneProduct = async (req, res) => {
   const { id } = req.params;
+
   if (!ObjectId.isValid(id)) return res.status(401).send("ID inválido");
 
   try {

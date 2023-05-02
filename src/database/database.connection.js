@@ -1,7 +1,9 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
+
 dotenv.config();
 const URI = process.env.DATABASE_URL;
+
 const dbConnection = async () => {
   const database = new MongoClient(URI, {
     serverApi: {
@@ -10,6 +12,7 @@ const dbConnection = async () => {
       deprecationErrors: true,
     },
   });
+
   try {
     await database.connect();
     return database.db();
