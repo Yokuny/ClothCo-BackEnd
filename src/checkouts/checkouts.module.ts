@@ -4,6 +4,6 @@ import { CheckoutsService } from './checkouts.service';
 
 @Module({
   controllers: [CheckoutsController],
-  providers: [CheckoutsService]
+  providers: [CheckoutsService],
 })
 export class CheckoutsModule {}
