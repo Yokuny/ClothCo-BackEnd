@@ -6,19 +6,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { CartsModule } from './carts/carts.module';
-import { RegistrationsModule } from './registrations/registrations.module';
 import { CheckoutsModule } from './checkouts/checkouts.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ProductsModule,
-    CartsModule,
-    RegistrationsModule,
-    CheckoutsModule,
     ConfigModule.forRoot({
-      envFilePath: '.env',
       isGlobal: true,
     }),
+    ProductsModule,
+    CartsModule,
+    CheckoutsModule,
+    AuthModule,
     MongooseModule.forRoot(process.env.DATABASE_URL),
   ],
   controllers: [AppController],
