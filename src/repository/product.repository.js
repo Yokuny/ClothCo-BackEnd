@@ -1,5 +1,4 @@
 import { db } from "../database/database.connection.js";
-import { ObjectId } from "mongodb";
 
 export const getAllProducts = () => {
   const options = { projection: { description: 0, color: 0, type: 0, quantity: 0 } };
