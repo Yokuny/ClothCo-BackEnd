@@ -11,14 +11,14 @@ export const postOrder = async (token, products) => {
   const user = await userByToken(token);
   if (!products) throw new Error("products is required");
 
-  const productsTable = products.map((product) => ({ _id: new ObjectId(product.id) }));
-  const stock = await repository.getProductsQuantity(productsTable);
+  const productsToRequest = products.map((product) => ({ _id: new ObjectId(product.id) }));
+  const stock = await repository.getProductsQuantity(productsToRequest);
 
   const orderObj = { products: [], total: 0, userId: user._id };
   const updates = [];
 
   for (let i = 0; i < stock.length; i++) {
-    if (products[i].quantity > stock[i].quantity && products[i]._id == stock[i]._id.toString()) {
+    if (products[i].quantity > stock[i].quantity && products[i].id == stock[i]._id.toString()) {
       throw new Error(`product ${stock[i].title} has insufficient stock`);
     }
 
@@ -45,6 +45,9 @@ export const getOrders = async (token) => {
 
 export const getOneOrder = async (token, id) => {
   if (!ObjectId.isValid(id)) throw new Error("ID inválido");
+
   const user = await userByToken(token);
-  return repository.getOneOrder(user._id, id);
+
+  const objId = new ObjectId(id);
+  return repository.getOneOrder(user._id, objId);
 };

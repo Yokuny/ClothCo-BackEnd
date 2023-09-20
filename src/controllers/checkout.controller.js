@@ -3,11 +3,9 @@ import httpStatus from "http-status-codes";
 
 export const postOrder = async (req, res) => {
   const token = req.headers.authorization.replace("Bearer ", "");
-  const products = req.body.products?.sort((a, b) => {
-    if (a._id > b._id) return 1;
-    if (a._id < b._id) return -1;
-    return 0;
-  });
+
+  const products = req.body?.products;
+  
 
   try {
     const orderId = await service.postOrder(token, products);

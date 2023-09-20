@@ -21,5 +21,5 @@ export const getOrders = async (id) => {
 };
 
 export const getOneOrder = async (_id, id) => {
-  return db.collection("orders").findOne({ _id: new ObjectId(id), userId: _id });
+  return db.collection("orders").findOne({ _id: id, userId: _id });
 };

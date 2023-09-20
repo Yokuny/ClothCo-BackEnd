@@ -8,7 +8,7 @@ export const registerUser = async (req, res) => {
     return res.status(httpStatus.CREATED).send("User created");
   } catch (err) {
     console.log(err);
-    if (err.message === "email already exists") return res.status(httpStatus.BAD_REQUEST).send(err.message);
+    if (err.message === "email already exists") return res.status(httpStatus.CONFLICT).send(err.message);
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send("Internal server error");
   }
 };
@@ -20,7 +20,7 @@ export const signin = async (req, res) => {
     return res.status(httpStatus.ACCEPTED).send(token);
   } catch (err) {
     console.log(err);
-    if (err.message === "Email doesn't exists") return res.status(httpStatus.BAD_REQUEST).send(err.message);
+    if (err.message === "Email doesn't exists") return res.status(httpStatus.UNAUTHORIZED).send(err.message);
     if (err.message === "Password incorrect") return res.status(httpStatus.FORBIDDEN).send(err.message);
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send("Internal server error");
   }
