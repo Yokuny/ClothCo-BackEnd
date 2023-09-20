@@ -7,7 +7,7 @@
   "type": "module",
   "version": "1.2.0",
   "scripts": {
-    "test": "node ./src/app.js",
+    "dev": "node ./src/app.js",
     "start": "nodemon ./src/app.js"
   },
   "dependencies": {

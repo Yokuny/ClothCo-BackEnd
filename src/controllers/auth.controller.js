@@ -7,6 +7,7 @@ export const registerUser = async (req, res) => {
 
     return res.status(httpStatus.CREATED).send("User created");
   } catch (err) {
+    console.log(err);
     if (err.message === "email already exists") return res.status(httpStatus.BAD_REQUEST).send(err.message);
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send("Internal server error");
   }
